@@ -11,7 +11,7 @@ Welcome to the EasyPractice tech challenge! Below you'll find a list of tasks to
 5. Open up the project in the browser and click on "Register" to create a new user. All the work will be done while logged in.
 6. Code indentation should be set up at 4 spaces in both PHP and JS files.
 7. Work through the tasks in a new branch named `challenge/{your-name}`. Commit as often as you like.
-8. Once you have completed the tasks, create a new [Pull Request](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request) and send us the link to it from your fork.
+8. Once you have completed the tasks, create a **new Pull Request** and send us the link to it from your fork.
 
 ## The tasks
 
