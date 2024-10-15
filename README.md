@@ -13,6 +13,8 @@ Welcome to the EasyPractice tech challenge! Below you'll find a list of tasks to
 7. Work through the tasks in a new branch named `challenge/{your-name}`. Commit as often as you like.
 8. Once you have completed the tasks, create a **new Pull Request** and send us the link to it from your fork.
 
+**Important**: Please DO NOT submit a Pull Request to the original repo, fork this one and submit a PR on your own repo :)
+
 ## The tasks
 
 Complete as many as you can. If you got some time left, there's BONUS tasks, but they're not required ;)
