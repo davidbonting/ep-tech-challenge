@@ -4,14 +4,14 @@ Welcome to the EasyPractice tech challenge! Below you'll find a list of tasks to
 
 ## Working on the challenge
 
-1. Fork the repo, and clone the fork
+1. Fork the repo, and then submit a Pull Request to your own fork
 2. Copy `.env.example` to `.env`
 3. Update the `.env` file to include the correct database connection details
 4. Run `composer install`, `php artisan key:generate`, `php artisan migrate`, `npm install` and `npm run dev` (ignore the build warnings)
 5. Open up the project in the browser and click on "Register" to create a new user. All the work will be done while logged in.
 6. Code indentation should be set up at 4 spaces in both PHP and JS files.
 7. Work through the tasks in a new branch named `challenge/{your-name}`. Commit as often as you like.
-8. Once you have completed the tasks, create a new [Pull Request](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request) and send us the link to it.
+8. Once you have completed the tasks, create a new [Pull Request](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request) and send us the link to it from your fork.
 
 ## The tasks
 
