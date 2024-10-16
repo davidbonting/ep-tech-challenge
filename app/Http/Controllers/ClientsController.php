@@ -16,6 +16,10 @@ class ClientsController extends Controller
             $client->append('bookings_count');
         }
 
+        if (request()->expectsJson()) {
+            return $clients;
+        }
+
         return view('clients.index', ['clients' => $clients]);
     }
 

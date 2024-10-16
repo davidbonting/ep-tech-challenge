@@ -1990,9 +1990,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ClientsList',
   props: ['clients'],
+  data: function data() {
+    return {
+      localClients: this.clients
+    };
+  },
   methods: {
     deleteClient: function deleteClient(client) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/clients/".concat(client.id));
+      var _this = this;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/clients/".concat(client.id)).then(function (response) {
+        // refresh the list of clients
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/clients').then(function (response) {
+          _this.localClients = response.data;
+        });
+      });
     }
   }
 });
@@ -2321,7 +2332,7 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", [_vm._m(0), _vm._v(" "), _c("table", {
     staticClass: "table"
-  }, [_vm._m(1), _vm._v(" "), _c("tbody", _vm._l(_vm.clients, function (client) {
+  }, [_vm._m(1), _vm._v(" "), _c("tbody", _vm._l(_vm.localClients, function (client) {
     return _c("tr", {
       key: client.id
     }, [_c("td", [_vm._v(_vm._s(client.name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(client.email))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(client.phone))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(client.bookings_count))]), _vm._v(" "), _c("td", [_c("a", {

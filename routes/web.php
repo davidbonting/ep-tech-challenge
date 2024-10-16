@@ -32,3 +32,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'clients'], function () {
     Route::post('/{client}/journals', 'JournalsController@store');
     Route::delete('/{client}/journals/{journal}', 'JournalsController@destroy');
 });
+
+// TODO: move to api.php and add correct authentication method
+Route::group(['middleware' => 'auth', 'prefix' => 'api'], function () {
+    Route::get('/clients', 'ClientsController@index');
+});

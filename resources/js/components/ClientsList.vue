@@ -16,7 +16,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="client in clients" :key="client.id">
+                <tr v-for="client in localClients" :key="client.id">
                     <td>{{ client.name }}</td>
                     <td>{{ client.email }}</td>
                     <td>{{ client.phone }}</td>
@@ -32,17 +32,29 @@
 </template>
 
 <script>
-import axios from 'axios';
+    import axios from 'axios';
 
-export default {
-    name: 'ClientsList',
+    export default {
+        name: 'ClientsList',
 
-    props: ['clients'],
+        props: ['clients'],
 
-    methods: {
-        deleteClient(client) {
-            axios.delete(`/clients/${client.id}`);
+        data() {
+            return {
+                localClients: this.clients,
+            };
+        },
+
+
+        methods: {
+            deleteClient(client) {
+                axios.delete(`/clients/${client.id}`).then(response => {
+                    // refresh the list of clients
+                    axios.get('/api/clients').then(response => {
+                        this.localClients = response.data;
+                    });
+                });
+            }
         }
     }
-}
 </script>
