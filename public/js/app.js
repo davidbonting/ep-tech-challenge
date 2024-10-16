@@ -2406,7 +2406,7 @@ var render = function render() {
     }, [_c("td", [_vm._v(_vm._s(client.name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(client.email))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(client.phone))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(client.bookings_count))]), _vm._v(" "), _c("td", [_c("a", {
       staticClass: "btn btn-primary btn-sm",
       attrs: {
-        href: "/clients/".concat(client.id)
+        href: client.url
       }
     }, [_vm._v("View")]), _vm._v(" "), _c("button", {
       staticClass: "btn btn-danger btn-sm",

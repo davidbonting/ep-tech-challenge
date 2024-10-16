@@ -26,6 +26,7 @@ class NewClientRequest extends FormRequest
         return [
             'name' => 'required|max:190',
             'email' => 'required_without:phone|nullable|email:rfc,dns',
+            // regex only contain digits, spaces and a plus sign
             'phone' =>  'required_without:email|nullable|regex:/^[\d\s+]+$/',
         ];
     }

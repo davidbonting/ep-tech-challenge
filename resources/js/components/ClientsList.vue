@@ -22,7 +22,7 @@
                     <td>{{ client.phone }}</td>
                     <td>{{ client.bookings_count }}</td>
                     <td>
-                        <a class="btn btn-primary btn-sm" :href="`/clients/${client.id}`">View</a>
+                        <a class="btn btn-primary btn-sm" :href="client.url">View</a>
                         <button class="btn btn-danger btn-sm" @click="deleteClient(client)">Delete</button>
                     </td>
                 </tr>
