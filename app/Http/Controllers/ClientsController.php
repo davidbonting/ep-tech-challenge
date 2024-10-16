@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Client;
-use Illuminate\Http\Request;
+use App\Http\Requests\NewClientRequest;
 use Auth;
 
 class ClientsController extends Controller
@@ -35,7 +35,7 @@ class ClientsController extends Controller
         return view('clients.show', ['client' => $client]);
     }
 
-    public function store(Request $request)
+    public function store(NewClientRequest $request)
     {
         $client = new Client;
         $client->name = $request->get('name');

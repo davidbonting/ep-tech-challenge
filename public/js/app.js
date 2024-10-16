@@ -1922,13 +1922,17 @@ __webpack_require__.r(__webpack_exports__);
         address: '',
         city: '',
         postcode: ''
-      }
+      },
+      formErrors: {}
     };
   },
   methods: {
     storeClient: function storeClient() {
+      var _this = this;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/clients', this.client).then(function (data) {
         window.location.href = data.data.url;
+      })["catch"](function (error) {
+        _this.formErrors = error.response.data.errors;
       });
     }
   }
@@ -2072,7 +2076,9 @@ var render = function render() {
         _vm.$set(_vm.client, "name", $event.target.value);
       }
     }
-  })]), _vm._v(" "), _c("div", {
+  }), _vm._v(" "), _vm.formErrors.name ? _c("span", {
+    staticClass: "text-red-500"
+  }, [_vm._v(_vm._s(_vm.formErrors.name[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "form-group"
   }, [_c("label", {
     attrs: {
@@ -2099,7 +2105,9 @@ var render = function render() {
         _vm.$set(_vm.client, "email", $event.target.value);
       }
     }
-  })]), _vm._v(" "), _c("div", {
+  }), _vm._v(" "), _vm.formErrors.email ? _c("span", {
+    staticClass: "text-red-500"
+  }, [_vm._v(_vm._s(_vm.formErrors.email[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "form-group"
   }, [_c("label", {
     attrs: {
@@ -2126,7 +2134,9 @@ var render = function render() {
         _vm.$set(_vm.client, "phone", $event.target.value);
       }
     }
-  })]), _vm._v(" "), _c("div", {
+  }), _vm._v(" "), _vm.formErrors.phone ? _c("span", {
+    staticClass: "text-red-500"
+  }, [_vm._v(_vm._s(_vm.formErrors.phone[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "form-group"
   }, [_c("label", {
     attrs: {
@@ -2153,7 +2163,9 @@ var render = function render() {
         _vm.$set(_vm.client, "address", $event.target.value);
       }
     }
-  })]), _vm._v(" "), _c("div", {
+  }), _vm._v(" "), _vm.formErrors.address ? _c("span", {
+    staticClass: "text-red-500"
+  }, [_vm._v(_vm._s(_vm.formErrors.address[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "flex"
   }, [_c("div", {
     staticClass: "form-group flex-1"
