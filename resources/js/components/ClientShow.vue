@@ -39,7 +39,16 @@
                 <div class="bg-white rounded p-4" v-if="currentTab == 'bookings'">
                     <h3 class="mb-3">List of client bookings</h3>
 
-                    <template v-if="client.bookings && client.bookings.length > 0">
+                    <div class="mb-3">
+                        <label for="booking-filter">Filter bookings:</label>
+                        <select id="booking-filter" class="form-control" v-model="bookingFilter">
+                            <option value="ALL">All bookings</option>
+                            <option value="FUTURE">Future bookings only</option>
+                            <option value="PAST">Past bookings only</option>
+                        </select>
+                    </div>
+
+                    <template v-if="filteredBookings && filteredBookings.length > 0">
                         <table>
                             <thead>
                                 <tr>
@@ -49,7 +58,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="booking in client.bookings" :key="booking.id">
+                                <tr v-for="booking in filteredBookings" :key="booking.id">
                                     <td>{{ formatBookingTime(booking) }}</td>
                                     <td>{{ booking.notes }}</td>
                                     <td>
@@ -89,6 +98,7 @@
         data() {
             return {
                 currentTab: 'bookings',
+                bookingFilter: 'ALL',
             }
         },
 
@@ -105,5 +115,20 @@
                 return `${moment(booking.start).format('dddd D MMMM YYYY, HH:00')} to ${moment(booking.end).format('HH:00')}`;
             },
         },
+
+        computed: {
+            filteredBookings() {
+                if (this.bookingFilter == 'FUTURE') {
+                    return this.client.bookings.filter(booking => moment(booking.start).isAfter(moment()));
+                }
+
+                if (this.bookingFilter == 'PAST') {
+                    return this.client.bookings.filter(booking => moment(booking.start).isBefore(moment()));
+                }
+
+                return this.client.bookings;
+            }
+        },
+
     }
 </script>

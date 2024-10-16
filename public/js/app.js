@@ -1960,7 +1960,8 @@ __webpack_require__.r(__webpack_exports__);
   props: ['client'],
   data: function data() {
     return {
-      currentTab: 'bookings'
+      currentTab: 'bookings',
+      bookingFilter: 'ALL'
     };
   },
   methods: {
@@ -1973,6 +1974,21 @@ __webpack_require__.r(__webpack_exports__);
     formatBookingTime: function formatBookingTime(booking) {
       // TODO: build support for displaying multi-day bookings when requirements of formatting are known
       return "".concat(moment__WEBPACK_IMPORTED_MODULE_1___default()(booking.start).format('dddd D MMMM YYYY, HH:00'), " to ").concat(moment__WEBPACK_IMPORTED_MODULE_1___default()(booking.end).format('HH:00'));
+    }
+  },
+  computed: {
+    filteredBookings: function filteredBookings() {
+      if (this.bookingFilter == 'FUTURE') {
+        return this.client.bookings.filter(function (booking) {
+          return moment__WEBPACK_IMPORTED_MODULE_1___default()(booking.start).isAfter(moment__WEBPACK_IMPORTED_MODULE_1___default()());
+        });
+      }
+      if (this.bookingFilter == 'PAST') {
+        return this.client.bookings.filter(function (booking) {
+          return moment__WEBPACK_IMPORTED_MODULE_1___default()(booking.start).isBefore(moment__WEBPACK_IMPORTED_MODULE_1___default()());
+        });
+      }
+      return this.client.bookings;
     }
   }
 });
@@ -2299,7 +2315,47 @@ var render = function render() {
     staticClass: "bg-white rounded p-4"
   }, [_c("h3", {
     staticClass: "mb-3"
-  }, [_vm._v("List of client bookings")]), _vm._v(" "), _vm.client.bookings && _vm.client.bookings.length > 0 ? [_c("table", [_vm._m(0), _vm._v(" "), _c("tbody", _vm._l(_vm.client.bookings, function (booking) {
+  }, [_vm._v("List of client bookings")]), _vm._v(" "), _c("div", {
+    staticClass: "mb-3"
+  }, [_c("label", {
+    attrs: {
+      "for": "booking-filter"
+    }
+  }, [_vm._v("Filter bookings:")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.bookingFilter,
+      expression: "bookingFilter"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      id: "booking-filter"
+    },
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.bookingFilter = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: "ALL"
+    }
+  }, [_vm._v("All bookings")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "FUTURE"
+    }
+  }, [_vm._v("Future bookings only")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "PAST"
+    }
+  }, [_vm._v("Past bookings only")])])]), _vm._v(" "), _vm.filteredBookings && _vm.filteredBookings.length > 0 ? [_c("table", [_vm._m(0), _vm._v(" "), _c("tbody", _vm._l(_vm.filteredBookings, function (booking) {
     return _c("tr", {
       key: booking.id
     }, [_c("td", [_vm._v(_vm._s(_vm.formatBookingTime(booking)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(booking.notes))]), _vm._v(" "), _c("td", [_c("button", {
