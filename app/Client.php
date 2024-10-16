@@ -24,9 +24,9 @@ class Client extends Model
         return $this->hasMany(Booking::class);
     }
 
-    public function getBookingsCountAttribute()
+    public function user()
     {
-        return $this->bookings->count();
+        return $this->belongsTo(User::class);
     }
 
     public function getUrlAttribute()

@@ -17,4 +17,13 @@ class Booking extends Model
         'start',
         'end',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('orderByStart', function ($query) {
+            $query->orderBy('start', 'asc');
+        });
+    }
 }

@@ -3,16 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Client;
-use Illuminate\Http\Request;
+use App\Http\Requests\NewClientRequest;
+use Auth;
 
 class ClientsController extends Controller
 {
     public function index()
     {
-        $clients = Client::all();
+        $clients = Auth::user()->clients()->select('id', 'name', 'email', 'phone')->withCount('bookings')->get();
 
-        foreach ($clients as $client) {
-            $client->append('bookings_count');
+        if (request()->expectsJson()) {
+            return $clients;
         }
 
         return view('clients.index', ['clients' => $clients]);
@@ -23,31 +24,20 @@ class ClientsController extends Controller
         return view('clients.create');
     }
 
-    public function show($client)
+    public function show(Client $client)
     {
-        $client = Client::where('id', $client)->first();
+        $client = $client->load('bookings');
 
         return view('clients.show', ['client' => $client]);
     }
 
-    public function store(Request $request)
+    public function store(NewClientRequest $request)
     {
-        $client = new Client;
-        $client->name = $request->get('name');
-        $client->email = $request->get('email');
-        $client->phone = $request->get('phone');
-        $client->adress = $request->get('adress');
-        $client->city = $request->get('city');
-        $client->postcode = $request->get('postcode');
-        $client->save();
-
-        return $client;
+        return Auth::user()->clients()->create($request->only('name', 'email', 'phone', 'adress', 'city', 'postcode'));
     }
 
-    public function destroy($client)
+    public function destroy(Client $client)
     {
-        Client::where('id', $client)->delete();
-
-        return 'Deleted';
+        return $client->delete();
     }
 }
