@@ -22,7 +22,7 @@
                             </tr>
                             <tr>
                                 <th class="text-gray-600 pr-3">Address</th>
-                                <td>{{ client.address }}<br/>{{ client.postcode + ' ' + client.city }}</td>
+                                <td>{{ client.address }}<br />{{ client.postcode + ' ' + client.city }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -50,7 +50,7 @@
                             </thead>
                             <tbody>
                                 <tr v-for="booking in client.bookings" :key="booking.id">
-                                    <td>{{ booking.start }} - {{ booking.end }}</td>
+                                    <td>{{ formatBookingTime(booking) }}</td>
                                     <td>{{ booking.notes }}</td>
                                     <td>
                                         <button class="btn btn-danger btn-sm" @click="deleteBooking(booking)">Delete</button>
@@ -78,27 +78,32 @@
 </template>
 
 <script>
-import axios from 'axios';
+    import axios from 'axios';
+    import moment from 'moment';
 
-export default {
-    name: 'ClientShow',
+    export default {
+        name: 'ClientShow',
 
-    props: ['client'],
+        props: ['client'],
 
-    data() {
-        return {
-            currentTab: 'bookings',
-        }
-    },
-
-    methods: {
-        switchTab(newTab) {
-            this.currentTab = newTab;
+        data() {
+            return {
+                currentTab: 'bookings',
+            }
         },
 
-        deleteBooking(booking) {
-            axios.delete(`/bookings/${booking.id}`);
-        }
+        methods: {
+            switchTab(newTab) {
+                this.currentTab = newTab;
+            },
+
+            deleteBooking(booking) {
+                axios.delete(`/bookings/${booking.id}`);
+            },
+            formatBookingTime(booking) {
+                // TODO: build support for displaying multi-day bookings when requirements of formatting are known
+                return `${moment(booking.start).format('dddd D MMMM YYYY, HH:00')} to ${moment(booking.end).format('HH:00')}`;
+            },
+        },
     }
-}
 </script>
